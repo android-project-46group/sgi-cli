@@ -1,12 +1,9 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
-*/
 package cmd
 
 import (
 	"os"
 
+	"github.com/android-project-46group/sgi-cli/util"
 	"github.com/spf13/cobra"
 )
 
@@ -17,13 +14,10 @@ var rootCmd = &cobra.Command{
 	Long:  `SGI is a CLI libracy about sakamichi group information.`,
 }
 
-func Execute() {
+func Execute(config util.Config) {
+	addVersionCmd(config.Version)
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
-}
-
-func init() {
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
