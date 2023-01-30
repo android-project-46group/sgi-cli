@@ -14,7 +14,7 @@ type ListMembersResponse struct {
 func (a *Api) ListMembers(gn string) ([]Member, error) {
 
 	var (
-		URL = fmt.Sprintf("%s/members?gn=%s&key=%s", a.config.BaseURL, gn, a.config.APIKey)
+		URL = fmt.Sprintf("%s/members?gn=%s&key=%s", a.config.Account.BaseURL, gn, a.config.Account.APIKey)
 	)
 
 	resp, err := a.httpCall(URL)

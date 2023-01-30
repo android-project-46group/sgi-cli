@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/android-project-46group/sgi-cli/api"
 	"github.com/android-project-46group/sgi-cli/cmd"
@@ -15,10 +16,10 @@ var (
 )
 
 func main() {
-	config := util.Config{
-		Version: fmt.Sprintf("%s - %s", version, revision),
-		BaseURL: "https://kokoichi0206.mydns.jp/api/v1",
-		APIKey: "my_api_key",
+	ver := fmt.Sprintf("%s - %s", version, revision)
+	config, err := util.NewConfig(ver)
+	if err != nil {
+		log.Fatal(err)
 	}
 	api := api.New(config)
 
