@@ -9,9 +9,8 @@ import (
 	"github.com/android-project-46group/sgi-cli/util"
 )
 
-const version = "0.1.0"
-
 var (
+	version = "0.1.0"
 	revision = "HEAD"
 )
 
