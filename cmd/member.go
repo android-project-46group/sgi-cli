@@ -40,31 +40,75 @@ func listMemberCmd(api api.ApiCaller) *cobra.Command {
 				os.Exit(0)
 			}
 
+			d, err := cmd.Flags().GetBool("data")
+			if err != nil {
+				fmt.Println(err)
+			}
+
 			members, err := api.ListMembers(group)
 			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)
 			}
 
-			// Print the members as a formatted table
-			var data [][]string
-			for _, member := range members {
-				x := []string{
-					strconv.Itoa(member.ID),
-					member.Name,
-				}
-				data = append(data, x)
-			}
-			header := []string{
-				"id",
-				"name",
-			}
-			util.PrintTable(header, data)
+			printMemberList(members, d)
 		},
 	}
 
 	// -g nogizaka
 	lsCmd.Flags().StringP("group", "g", "", "group name to fetch")
+	// -d, --data
+	lsCmd.Flags().BoolP("data", "d", false, "print all data")
 
 	return lsCmd
+}
+
+// Print the members as a formatted table
+func printMemberList(members []api.Member, all bool) {
+
+	var header []string
+	var data [][]string
+
+	if all {
+		header = []string{
+			"id",
+			"name",
+			"birthday",
+			"height",
+			"blood",
+			"generation",
+			"blog",
+			"img",
+		}
+		for _, member := range members {
+			x := []string{
+				strconv.Itoa(member.ID),
+				member.Name,
+				member.Birthday,
+				member.Height,
+				member.Blood,
+				member.Generation,
+				member.BlogURL,
+				member.ImgURL,
+			}
+			data = append(data, x)
+		}
+	} else {
+		header = []string{
+			"id",
+			"name",
+			"generation",
+		}
+		for _, member := range members {
+			x := []string{
+				strconv.Itoa(member.ID),
+				member.Name,
+				member.Generation,
+			}
+			data = append(data, x)
+		}
+
+	}
+
+	util.PrintTable(header, data)
 }
