@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strconv"
@@ -24,6 +25,23 @@ func addMemberCmd(api api.ApiCaller) {
 	rootCmd.AddCommand(memberCmd)
 }
 
+type listMember struct {
+	ID         int    `json:"id"`
+	Name       string `json:"name"`
+	Generation string `json:"generation"`
+}
+
+type listMemberAll struct {
+	ID         int    `json:"id"`
+	Name       string `json:"name"`
+	Birthday   string `json:"birthday"`
+	Height     string `json:"height"`
+	Blood      string `json:"blood"`
+	Generation string `json:"generation"`
+	BlogURL    string `json:"blog"`
+	ImgURL     string `json:"img"`
+}
+
 // listMemberCmd prints the all members of a specific groud.
 func listMemberCmd(api api.ApiCaller) *cobra.Command {
 	lsCmd := &cobra.Command{
@@ -43,6 +61,12 @@ func listMemberCmd(api api.ApiCaller) *cobra.Command {
 			d, err := cmd.Flags().GetBool("data")
 			if err != nil {
 				fmt.Println(err)
+				os.Exit(1)
+			}
+			j, err := cmd.Flags().GetBool("json")
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
 			}
 
 			members, err := api.ListMembers(group)
@@ -51,7 +75,11 @@ func listMemberCmd(api api.ApiCaller) *cobra.Command {
 				os.Exit(1)
 			}
 
-			printMemberList(members, d)
+			if j {
+				printMemberListJson(members, d)
+			} else {
+				printMemberList(members, d)
+			}
 		},
 	}
 
@@ -59,6 +87,8 @@ func listMemberCmd(api api.ApiCaller) *cobra.Command {
 	lsCmd.Flags().StringP("group", "g", "", "group name to fetch")
 	// -d, --data
 	lsCmd.Flags().BoolP("data", "d", false, "print all data")
+	// -j, --json
+	lsCmd.Flags().BoolP("json", "j", false, "print as a json format")
 
 	return lsCmd
 }
@@ -111,4 +141,54 @@ func printMemberList(members []api.Member, all bool) {
 	}
 
 	util.PrintTable(header, data)
+}
+
+// Print the members as a json format
+func printMemberListJson(members []api.Member, all bool) {
+
+	if all {
+		var ms []listMemberAll
+		for _, member := range members {
+			m := listMemberAll{
+				ID:         member.ID,
+				Name:       member.Name,
+				Birthday:   member.Birthday,
+				Height:     member.Height,
+				Blood:      member.Blood,
+				Generation: member.Generation,
+				BlogURL:    member.BlogURL,
+				ImgURL:     member.ImgURL,
+			}
+			ms = append(ms, m)
+		}
+
+		b, err := json.Marshal(ms)
+		if err != nil {
+			fmt.Println("failed to marshal to json: %w", err)
+			os.Exit(1)
+		}
+
+		// Final output
+		fmt.Printf(string(b))
+	} else {
+		var ms []listMember
+
+		for _, member := range members {
+			m := listMember{
+				ID:         member.ID,
+				Name:       member.Name,
+				Generation: member.Generation,
+			}
+			ms = append(ms, m)
+		}
+
+		b, err := json.Marshal(ms)
+		if err != nil {
+			fmt.Println("failed to marshal to json: %w", err)
+			os.Exit(1)
+		}
+
+		// Final output
+		fmt.Printf(string(b))
+	}
 }
