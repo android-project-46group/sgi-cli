@@ -1,5 +1,6 @@
 package api
 
+// Group represents member information.
 type Member struct {
 	ID         int    `json:"user_id"`
 	Name       string `json:"user_name"`
@@ -9,4 +10,10 @@ type Member struct {
 	Generation string `json:"generation"`
 	BlogURL    string `json:"blog_url"`
 	ImgURL     string `json:"img_url"`
+}
+
+// Group represents group information.
+type Group struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
 }

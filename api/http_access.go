@@ -6,6 +6,7 @@ import (
 )
 
 // Custom HTTP call.
+// If failed, retry a default number of times.
 func (a *Api) httpCall(url string) (*http.Response, error) {
 
 	retries := 3

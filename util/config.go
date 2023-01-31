@@ -8,14 +8,26 @@ import (
 	"path/filepath"
 )
 
+// Config contains the all settings for this cli.
+// Create an instance of Config, by using NewConfig()
 type Config struct {
+
+	// Version is the application version.
+	// Basically it consists of version and git-revision.
 	Version string
+
+	// Account contains the api settings of this cli
 	Account Account
 }
 
+// Account contains the settings for api.
 type Account struct {
+
+	// BaseURL is the entrypoint of the api.
 	BaseURL string
-	APIKey  string
+
+	// APIKey is needed to get information using API call
+	APIKey string
 }
 
 var (
@@ -23,6 +35,9 @@ var (
 	accountPath = ".sgi/account.json"
 )
 
+// NewConfig returns a new Config instance.
+// The configuration value is obtained from accountPath under the ${HOME} directory.
+// You need to pass the cli version as an argument.
 func NewConfig(version string) (Config, error) {
 
 	var cfg Config

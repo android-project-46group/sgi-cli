@@ -7,17 +7,18 @@ import (
 )
 
 // Structure reflecting API response results.
-type ListMembersResponse struct {
+type ListGroupsResponse struct {
 
 	// Top layer of json struct in the response body.
-	Members []Member `json:"members"`
+	Groups []Group `json:"groups"`
 }
 
-// Lists members for a specific group.
-func (a *Api) ListMembers(gn string) ([]Member, error) {
+// Lists of all groups.
+// Fetch data from {BASE_URL}/groups with api_key as a query parameter.
+func (a *Api) ListGroups() ([]Group, error) {
 
 	var (
-		URL = fmt.Sprintf("%s/members?gn=%s&key=%s", a.config.Account.BaseURL, gn, a.config.Account.APIKey)
+		URL = fmt.Sprintf("%s/groups?key=%s", a.config.Account.BaseURL, a.config.Account.APIKey)
 	)
 
 	resp, err := a.httpCall(URL)
@@ -31,10 +32,10 @@ func (a *Api) ListMembers(gn string) ([]Member, error) {
 		return nil, fmt.Errorf("failed to io.ReadAll: %w", err)
 	}
 
-	var membersResponse ListMembersResponse
-	if err := json.Unmarshal(body, &membersResponse); err != nil {
+	var groupsResponse ListGroupsResponse
+	if err := json.Unmarshal(body, &groupsResponse); err != nil {
 		return nil, fmt.Errorf("failed to json.Unmarshal: %w", err)
 	}
 
-	return membersResponse.Members, nil
+	return groupsResponse.Groups, nil
 }

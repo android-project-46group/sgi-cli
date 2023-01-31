@@ -52,7 +52,7 @@ $ sgi member ls -h
 fetch all information
 
 Usage:
-  sgi-cli member ls [flags]
+  sgi member ls [flags]
 
 Flags:
   -d, --data           print all data
@@ -62,6 +62,26 @@ Flags:
 
 # list nogizaka members
 $ sgi member ls -g nogizaka
+```
+
+### _group_
+
+About groups information.  
+For now, only **_ls_** subcommand is available
+
+```sh
+$ sgi group ls -h
+fetch all information
+
+Usage:
+  sgi group ls [flags]
+
+Flags:
+  -h, --help   help for ls
+  -j, --json   print as a json format
+
+# list nogizaka members
+$ sgi group ls
 ```
 
 ## LICENSE
