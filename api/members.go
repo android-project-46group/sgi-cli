@@ -6,7 +6,10 @@ import (
 	"io"
 )
 
+// Structure reflecting API response results.
 type ListMembersResponse struct {
+
+	// Top layer of json struct in the response body.
 	Members []Member `json:"members"`
 }
 
