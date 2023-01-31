@@ -18,6 +18,7 @@ var rootCmd = &cobra.Command{
 func Execute(config util.Config, api api.ApiCaller) {
 	addVersionCmd(config.Version)
 	addMemberCmd(api)
+	addGroupCmd(api)
 
 	err := rootCmd.Execute()
 	if err != nil {
