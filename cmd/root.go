@@ -13,6 +13,10 @@ var rootCmd = &cobra.Command{
 	Use:   "sgi",
 	Short: "About sakamichi group information",
 	Long:  `SGI is a CLI libracy about sakamichi group information.`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		util.PrintLogo()
+		return nil
+	},
 }
 
 // Execute is the starting function when run cli
