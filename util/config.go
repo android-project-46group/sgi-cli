@@ -35,7 +35,7 @@ var (
 	accountPath = ".sgi/account.json"
 )
 
-// NewConfig returns a new Config instance.
+// NewConfig returns a new [Config] instance.
 // The configuration value is obtained from accountPath under the ${HOME} directory.
 // You need to pass the cli version as an argument.
 func NewConfig(version string) (Config, error) {
