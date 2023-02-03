@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
 )
 
 // Structure reflecting API response results.
@@ -20,10 +21,14 @@ func (a *Api) ListGroups() ([]Group, error) {
 	var (
 		URL = fmt.Sprintf("%s/groups?key=%s", a.config.Account.BaseURL, a.config.Account.APIKey)
 	)
-
-	resp, err := a.httpCall(URL)
+	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
-		return nil, fmt.Errorf("failed to httpCall: %w", err)
+		return nil, fmt.Errorf("failed to http.NewRequest: %w", err)
+	}
+
+	resp, err := a.client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("failed to client.Do: %w", err)
 	}
 
 	body, err := io.ReadAll(resp.Body)
