@@ -53,10 +53,6 @@ func listMemberCmd(api api.ApiCaller) *cobra.Command {
 			if err != nil {
 				fmt.Println(err)
 			}
-			if group == "" {
-				fmt.Println("ls command needs a group name")
-				os.Exit(0)
-			}
 
 			d, err := cmd.Flags().GetBool("data")
 			if err != nil {
