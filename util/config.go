@@ -52,7 +52,11 @@ func NewConfig(version string) (Config, error) {
 
 	f, err := os.Open(joined)
 	if err != nil {
-		return cfg, errors.New(fmt.Sprintf("Expected to read account information from: %s\n", joined))
+		// If the error is [os.ErrNotExist], it's ok to continue without credential.
+		if errors.Is(err, os.ErrNotExist) {
+			return cfg, nil
+		}
+		return cfg, fmt.Errorf("Expected to read account information: %w\n", err)
 	}
 	defer f.Close()
 
