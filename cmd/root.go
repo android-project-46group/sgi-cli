@@ -22,8 +22,10 @@ var rootCmd = &cobra.Command{
 // Execute is the starting function when run cli
 func Execute(config util.Config, api api.ApiCaller) {
 	addVersionCmd(config.Version)
-	addMemberCmd(api)
-	addGroupCmd(api)
+
+	// Before commands which need API call, validation will be executed.
+	addMemberCmd(api, config)
+	addGroupCmd(api, config)
 
 	err := rootCmd.Execute()
 	if err != nil {

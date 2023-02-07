@@ -12,26 +12,28 @@ import (
 )
 
 // Add member command to rootCmd
-func addGroupCmd(api api.ApiCaller) {
+func addGroupCmd(api api.ApiCaller, cfg util.Config) {
 	// groupCmd represents the group command
 	var groupCmd = &cobra.Command{
 		Use:   "group",
 		Short: "groups information",
 		Long:  `fetch and update groups' information`,
 	}
-	listCmd := listGroupCmd(api)
+	listCmd := listGroupCmd(api, cfg)
 	groupCmd.AddCommand(listCmd)
 
 	rootCmd.AddCommand(groupCmd)
 }
 
 // listGroupCmd prints the all groups.
-func listGroupCmd(api api.ApiCaller) *cobra.Command {
+func listGroupCmd(api api.ApiCaller, cfg util.Config) *cobra.Command {
 	lsCmd := &cobra.Command{
 		Use:   "ls",
 		Short: "list information",
 		Long:  `fetch all information`,
 		Run: func(cmd *cobra.Command, args []string) {
+
+			validate(cfg)
 
 			j, err := cmd.Flags().GetBool("json")
 			if err != nil {
