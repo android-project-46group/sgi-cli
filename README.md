@@ -66,12 +66,24 @@ $ rm -r ~/.sgi
 
 ### How to set account information
 
+Put the following format json
+
 ```json
 // ~/.sgi/account.json
 {
   "baseURL": "https://uri/to/api_server",
   "apiKey": "your_api_key"
 }
+```
+
+Or log-in with `login` subcommand,
+
+```sh
+$ sgi login
+Please provide your login information.
+
+ BaseURL:
+ ...
 ```
 
 ## COMMANDS
