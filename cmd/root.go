@@ -23,6 +23,8 @@ var rootCmd = &cobra.Command{
 func Execute(config util.Config, api api.ApiCaller) {
 	addVersionCmd(config.Version)
 
+	addLoginCmd()
+
 	// Before commands which need API call, validation will be executed.
 	addMemberCmd(api, config)
 	addGroupCmd(api, config)
