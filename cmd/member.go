@@ -12,14 +12,14 @@ import (
 )
 
 // Add member command to rootCmd
-func addMemberCmd(api api.ApiCaller) {
+func addMemberCmd(api api.ApiCaller, cfg util.Config) {
 	memberCmd := &cobra.Command{
 		Use:   "member",
 		Short: "members information",
 		Long:  `fetch and update members' information`,
 	}
 
-	listCmd := listMemberCmd(api)
+	listCmd := listMemberCmd(api, cfg)
 	memberCmd.AddCommand(listCmd)
 
 	rootCmd.AddCommand(memberCmd)
@@ -43,12 +43,15 @@ type listMemberAll struct {
 }
 
 // listMemberCmd prints the all members of a specific groud.
-func listMemberCmd(api api.ApiCaller) *cobra.Command {
+func listMemberCmd(api api.ApiCaller, cfg util.Config) *cobra.Command {
 	lsCmd := &cobra.Command{
 		Use:   "ls",
 		Short: "list information",
 		Long:  `fetch all information`,
 		Run: func(cmd *cobra.Command, args []string) {
+
+			validate(cfg)
+
 			group, err := cmd.Flags().GetString("group")
 			if err != nil {
 				fmt.Println(err)
