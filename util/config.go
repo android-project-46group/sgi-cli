@@ -31,12 +31,16 @@ type Account struct {
 }
 
 var (
-	// Path to an account setting file from HOME directory
-	accountPath = ".sgi/account.json"
+	// Path to Working directory related to CLI tools.
+	// The path is described relative to the HOME directory.
+	CliDir = ".sgi"
+
+	// Name of the file where the account information is stored.
+	AccountFile = "account.json"
 )
 
 // NewConfig returns a new [Config] instance.
-// The configuration value is obtained from accountPath under the ${HOME} directory.
+// The configuration value is obtained from [AccountFile] under the ${HOME} directory.
 // You need to pass the cli version as an argument.
 func NewConfig(version string) (Config, error) {
 
@@ -48,7 +52,7 @@ func NewConfig(version string) (Config, error) {
 	if err != nil {
 		return cfg, err
 	}
-	joined := filepath.Join(home, accountPath)
+	joined := filepath.Join(home, CliDir, AccountFile)
 
 	f, err := os.Open(joined)
 	if err != nil {
