@@ -47,7 +47,7 @@ $ rm -r ~/.sgi
 3. Then you can build from source
 
 ```sh
-$ go install github.com/android-project-46group/sgi-cli@lates
+$ go install github.com/android-project-46group/sgi-cli@latest
 
 # Rename the binary if you want.
 $ mv $GOPATH/bin/sgi-cli $GOPATH/bin/sgi
