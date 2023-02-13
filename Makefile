@@ -9,7 +9,7 @@ EXTERNAL_TOOLS := \
 .DEFAULT_GOAL := help
 
 build:	## バージョン値にリビジョンを埋め込んでビルド。
-	go build -o ${BINARY_NAME} -ldflags=$(BUILD_LDFLAGS)
+	go build -o ${BINARY_NAME} -ldflags=$(BUILD_LDFLAGS) cmd/sgi/*
 
 help:	## https://postd.cc/auto-documented-makefile/
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \

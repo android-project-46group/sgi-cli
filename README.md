@@ -47,10 +47,7 @@ $ rm -r ~/.sgi
 3. Then you can build from source
 
 ```sh
-$ go install github.com/android-project-46group/sgi-cli@latest
-
-# Rename the binary if you want.
-$ mv $GOPATH/bin/sgi-cli $GOPATH/bin/sgi
+$ go install github.com/android-project-46group/sgi-cli/cmd/sgi@latest
 ```
 
 #### Uninstall
@@ -58,7 +55,7 @@ $ mv $GOPATH/bin/sgi-cli $GOPATH/bin/sgi
 Jst delete the binary.
 
 ```sh
-$ rm $GOPATH/bin/sgi-cli
+$ rm $GOPATH/bin/sgi
 
 # delete the related files
 $ rm -r ~/.sgi
