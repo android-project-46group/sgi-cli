@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 )
 
 // Structure reflecting API response results.
@@ -17,9 +18,11 @@ type ListMembersResponse struct {
 // Lists members for a specific group.
 func (a *Api) ListMembers(gn string) ([]Member, error) {
 
-	var (
-		URL = fmt.Sprintf("%s/members?gn=%s&key=%s", a.config.Account.BaseURL, gn, a.config.Account.APIKey)
-	)
+	query := url.Values{}
+	query.Set("key", a.config.Account.APIKey)
+	query.Set("gn", gn)
+
+	URL := fmt.Sprintf("%s/members?%s", a.config.Account.BaseURL, query.Encode())
 
 	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
