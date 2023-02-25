@@ -2,6 +2,12 @@
 [![GoDoc](https://img.shields.io/badge/godoc-reference-5272B4)](https://pkg.go.dev/github.com/android-project-46group/sgi-cli)
 [![Release](https://img.shields.io/github/release/android-project-46group/sgi-cli.svg?style=flat-square)](https://github.com/android-project-46group/sgi-cli/releases)
 
+[![](https://img.shields.io/badge/server-555.svg?logo=go)](https://github.com/android-project-46group/api-server)
+[![](https://img.shields.io/badge/core--api-555.svg?logo=go)](https://github.com/android-project-46group/core-api)
+[![](https://img.shields.io/badge/crawler-555.svg?logo=python)](https://github.com/android-project-46group/api)
+[![](https://img.shields.io/badge/openapi-555.svg?logo=OpenAPI+Initiative)](https://github.com/android-project-46group/open-api)
+[![](https://img.shields.io/badge/pb-555.svg?logo=Raspberry+Pi)](https://github.com/android-project-46group/protobuf)
+
 # sgi-cli
 
 CLI tool for Sakamichi Group Information (SGI).

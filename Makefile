@@ -22,6 +22,7 @@ bootstrap: ## 外部ツールをインストールする。
 	done
 
 godoc:	## godoc をローカルで表示する。http://localhost:8080/{module_name}
+	@echo see: http://localhost:8080/github.com/android-project-46group/sgi-cli
 	pkgsite
 
 clean:
